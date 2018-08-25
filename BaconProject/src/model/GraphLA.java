@@ -4,15 +4,26 @@ import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.Pelicula;
 
 import java.util.List;
+import java.util.Set;
 
 public class GraphLA implements GraphAPI {
+
+    private Set<Actor> actores;
+    private Actor ultimoActorDijkstra;
+    private boolean calculadoDijkstra;
+
+
     @Override
-    public List<Edge> caminoBFS(Actor a, Actor b) {
+    public List<Pelicula> caminoBFS(Actor a, Actor b) {
         return null;
     }
 
     @Override
-    public List<Edge> caminoDijkstra(Actor a, Actor b) {
+    public List<Pelicula> caminoDijkstra(Actor a, Actor b) {
+        return null;
+    }
+
+    private List<Pelicula> caminoInternal(Actor actor, Actor actor1) {
         return null;
     }
 

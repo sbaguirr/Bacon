@@ -68,7 +68,7 @@ public class Actor {
         }
         return true;
     }
-
+    // TODO: Pasar esto a los modelos o a los Utils.
     public static HashMap<Integer, String> cargarActor() {
         HashMap<Integer, String> mapa = new HashMap<>();
         

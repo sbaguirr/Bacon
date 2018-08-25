@@ -1,20 +1,25 @@
 package model;
 
-import ec.edu.espol.tda.Actor;
+public class Edge<E> {
 
-public abstract class Edge<E,T> {
+    private Vertex<E> origen, destino;
+    private Object data;
 
-    private E origen,destino;
-    private T data;
+    public Edge(Vertex<E> origen, Vertex<E> destino, Object data) {
+        this.origen = origen;
+        this.destino = destino;
+        this.data = data;
+    }
 
-
-    public E getOrigen(){
+    public Vertex<E> getOrigen() {
         return origen;
     }
-    public E getDestino(){
+
+    public Vertex<E> getDestino() {
         return destino;
     }
-    public  T getData(){
+
+    public Object getData() {
         return data;
     }
 

@@ -7,7 +7,11 @@ import java.util.List;
 
 public class Oracle implements OracleAPI {
 
-    private GraphLA grafo;
+    private GraphLA<Actor> grafo;
+
+    public Oracle(GraphLA<Actor> grafo) {
+        this.grafo = grafo;
+    }
 
     @Override
     public List<Pelicula> caminoBFS(Actor a, Actor b) {

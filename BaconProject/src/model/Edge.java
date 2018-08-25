@@ -2,9 +2,21 @@ package model;
 
 import ec.edu.espol.tda.Actor;
 
-public interface Edge {
+public abstract class Edge<E,T> {
 
-    Actor getOrigen();
-    Actor getDestino();
+    private E origen,destino;
+    private T data;
+
+
+    public E getOrigen(){
+        return origen;
+    }
+    public E getDestino(){
+        return destino;
+    }
+    public  T getData(){
+        return data;
+    }
+
 
 }

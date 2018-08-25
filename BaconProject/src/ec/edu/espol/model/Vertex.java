@@ -1,4 +1,4 @@
-package model;
+package ec.edu.espol.model;
 
 import java.util.LinkedList;
 import java.util.List;

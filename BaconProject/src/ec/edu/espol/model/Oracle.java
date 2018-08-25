@@ -1,4 +1,4 @@
-package model;
+package ec.edu.espol.model;
 
 import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.Pelicula;

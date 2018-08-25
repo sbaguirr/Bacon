@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ec.edu.espol.vistas.VistaPrincipal"
+            prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <VBox spacing="20">
+            <Text text="Oráculo de Bacon" style="-fx-font: 20;"/>
+            <Text text="¿Qué método de búsqueda desea usar?"/>
+            <HBox spacing="40">
+                <Button text="Dijkstra" onAction="#handleAlgorithm"/>
+                <!-- TODO: Quitar disable cuando se implemente BFS -->
+                <Button text="BFS" disable="true" onAction="#handleAlgorithm"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ec.edu.espol.vistas.VistaOraculo"
+            prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <VBox spacing="20">
+            <Text text="Calcula el número de bacon de alguien!"/>
+            <HBox spacing="10">
+                <Label text="Distancia de Kevin Bacon hasta"/>
+                <TextField fx:id="actorB" promptText="Ingresa tu actor favorito aquí!"/>
+            </HBox>
+            <Button text="Calcular!" onAction="#handleBacon"/>
+        </VBox>
+    </center>
+</BorderPane>

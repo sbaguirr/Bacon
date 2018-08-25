@@ -1,4 +1,4 @@
-package model;
+package ec.edu.espol.model;
 
 public class Edge<E> {
 

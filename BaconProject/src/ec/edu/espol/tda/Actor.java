@@ -7,7 +7,6 @@ package ec.edu.espol.tda;
 
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  *
@@ -17,14 +16,10 @@ public class Actor {
 
     private int id;
     private String nombres;
-    private Set<Pelicula> pelis;
 
     public Actor(int id, String nom) {
         this.id = id;
         this.nombres = nom;
-    }
-
-    public Actor() {
     }
 
     public int getId() {
@@ -79,7 +74,4 @@ public class Actor {
     }
 
 
-    public Set<Pelicula> getPelis() {
-        return pelis;
-    }
 }

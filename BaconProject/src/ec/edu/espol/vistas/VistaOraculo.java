@@ -13,7 +13,7 @@ public class VistaOraculo {
     private boolean isDijkstra;
 
     public VistaOraculo(boolean isDijkstra) {
-        oraculo = new Oracle(Utils.generarOraculo("ARCHIVOS"));
+        oraculo = new Oracle(Utils.generarOraculo());
         this.isDijkstra = isDijkstra;
     }
 

@@ -11,7 +11,7 @@
             prefHeight="400.0" prefWidth="600.0">
     <center>
         <VBox spacing="20">
-            <Text text="Oráculo de Bacon" style="-fx-font: 20;"/>
+            <Text text="Oráculo de Bacon" style="-fx-font-size: 20;"/>
             <Text text="¿Qué método de búsqueda desea usar?"/>
             <HBox spacing="40">
                 <Button text="Dijkstra" onAction="#handleAlgorithm"/>

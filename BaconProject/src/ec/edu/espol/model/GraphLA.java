@@ -1,15 +1,13 @@
 package ec.edu.espol.model;
 
-import java.util.Deque;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 public class GraphLA<E> {
 
     private Set<Vertex<E>> actores;
     private Vertex<E> last;
     private boolean calculadoDijkstra;
+
 
     public GraphLA() {
         actores = new HashSet<>();
@@ -36,14 +34,20 @@ public class GraphLA<E> {
     private void dijkstra_internal(Vertex<E> origen) {
         desmarcarVertices();
         reiniciarDistancias();
-        Deque<Vertex<E>> colaVertices = new LinkedList<>();
+        PriorityQueue<Vertex<E>> colaVertices = new PriorityQueue<>();
         colaVertices.offer(origen);
         while (!colaVertices.isEmpty()) {
             Vertex<E> actual = colaVertices.poll();
-            for (Vertex<E> adj : actual.getAdj()) {
-                adj.setDistancia(actual.getDistancia() + 1);
-                adj.setAntecesor(actual);
-                colaVertices.offer(adj);
+            if (actual.isVisitado())
+                continue;
+            for (Edge<E> arco: actual.getEdgeList()) {
+                Vertex<E> destino = arco.getDestino();
+                int nueva_distancia = actual.getDistancia() + 1;
+                if(destino.getDistancia() > nueva_distancia){
+                    destino.setDistancia(nueva_distancia);
+                    destino.setAntecesor(actual);
+                }
+                colaVertices.offer(destino);
             }
             actual.setVisitado(true);
         }

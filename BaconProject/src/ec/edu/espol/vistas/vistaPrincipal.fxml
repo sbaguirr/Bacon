@@ -1,23 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
-<BorderPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ec.edu.espol.vistas.VistaPrincipal"
-            prefHeight="400.0" prefWidth="600.0">
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.vistas.VistaPrincipal">
     <center>
         <VBox spacing="20">
-            <Text text="Oráculo de Bacon" style="-fx-font-size: 20;"/>
-            <Text text="¿Qué método de búsqueda desea usar?"/>
-            <HBox spacing="40">
-                <Button text="Dijkstra" onAction="#handleAlgorithm"/>
-                <!-- TODO: Quitar disable cuando se implemente BFS -->
-                <Button text="BFS" disable="true" onAction="#handleAlgorithm"/>
-            </HBox>
+           <children>
+               <Text style="-fx-font-size: 30; -fx-font-weight: bold;" text="Oráculo de Bacon" textAlignment="CENTER" wrappingWidth="556.435546875">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+               </VBox.margin>
+            </Text>
+               <Text style="-fx-font-size: 15;" text="¿Qué método de búsqueda desea usar?" textAlignment="CENTER" wrappingWidth="555.671875">
+               <VBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </VBox.margin>
+            </Text>
+               <HBox alignment="CENTER" spacing="40">
+                  <children>
+                      <Button minHeight="40.0" minWidth="80.0" onAction="#handleAlgorithm" style="-fx-background-color: #A6FF00; -fx-font-size: 15; -fx-font-weight: Bold;" text="Dijkstra" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </Button>
+                      <!-- TODO: Quitar disable cuando se implemente BFS -->
+                      <Button disable="true" minHeight="40.0" minWidth="80.0" onAction="#handleAlgorithm" style="-fx-background-color: #FF00FF; -fx-font-size: 15; -fx-font-weight: bold;" text="BFS" textFill="WHITE">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  </children>
+               </HBox>
+           </children>
         </VBox>
     </center>
 </BorderPane>

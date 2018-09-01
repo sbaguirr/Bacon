@@ -276,7 +276,7 @@ public class Utils {
 
     public static void vincularPeliculaActorList(List<PeliculaActor> listPeliculaActor, List<Actor> listActor, List<Pelicula> listPelicula) {
         for (PeliculaActor pa : listPeliculaActor) {
-            Pelicula pelicula = Pelicula.buscarPeliculaList(listPelicula, pa.getIdActor());
+            Pelicula pelicula = Pelicula.buscarPeliculaList(listPelicula, pa.getIdPelicula());
             Actor actor = Actor.buscarActorList(listActor, pa.getIdActor());
             if (pelicula != null && actor != null) {
                 pa.setActor(actor);

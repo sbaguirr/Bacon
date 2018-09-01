@@ -78,7 +78,7 @@ public class PeliculaActor {
 
     @Override
     public String toString() {
-        return idPelicula + "-" + idActor +actor +"--"+ pelicula;
+        return idPelicula + "-" + idActor +" "+actor +"--"+ pelicula;
     }  
     
 }

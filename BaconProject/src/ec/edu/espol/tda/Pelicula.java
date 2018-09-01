@@ -53,6 +53,23 @@ public class Pelicula {
     public void setNombrePelicula(String nombrePelicula) {
         this.nombrePelicula = nombrePelicula;
     }
+    
+     public static Pelicula buscarPelicula(HashMap<Integer, String> mapaPelicula, Integer id) {
+        String nombrePelicula = mapaPelicula.get(id);
+        if (nombrePelicula != null) {
+            return new Pelicula(id, nombrePelicula);
+        }
+        return null;
+    }
+    
+    public static Pelicula buscarPeliculaList(List<Pelicula> listPeli, Integer id) {
+        for(Pelicula a: listPeli){
+        if(a.getId()==id){
+        return new Pelicula(id, a.getNombrePelicula());
+        }
+        }
+        return null;
+    }
   
     public List<Pelicula> CargarEntradasList(String filename) throws IOException{
         List<Pelicula> lista = new LinkedList<>();

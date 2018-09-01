@@ -17,15 +17,14 @@ import javafx.stage.Stage;
  * @author ROSA
  */
 public class MainBacon extends Application {
-    public static Scene scene;
+    public final static Scene SCENE =new Scene(new Group(),600,550);
     @Override
     public void start(Stage primaryStage) {
         PaneMenuPrincipal mp = new PaneMenuPrincipal();
-        scene = new Scene(new Group(),600,550);
-        scene.setRoot(mp.getRoot());
+        SCENE.setRoot(mp.getRoot());
         //scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Oraculo de Bacon");
-        primaryStage.setScene(scene);
+        primaryStage.setScene(SCENE);
         primaryStage.show();
     }
 

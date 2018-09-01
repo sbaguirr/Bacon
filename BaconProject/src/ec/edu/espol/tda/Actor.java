@@ -6,6 +6,7 @@
 package ec.edu.espol.tda;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -70,6 +71,21 @@ public class Actor {
     public String toString() {
         return id + "-" + nombres;
     }
+    public static Actor buscarActor(HashMap<Integer, String> mapaActor, Integer id) {
+        String nombreActor = mapaActor.get(id);
+        if (nombreActor != null) {
+            return new Actor(id, nombreActor);
+        }
+        return null;
+    }
     
+    public static Actor buscarActorList(List<Actor> listActor, Integer id) {
+        for(Actor a: listActor){
+        if(a.getId()==id){
+        return new Actor(id, a.getNombres());
+        }
+        }
+        return null;
+    }
     
 }

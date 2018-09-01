@@ -5,7 +5,6 @@
  */
 package ec.edu.espol.vistas;
 
-import static ec.edu.espol.main.MainBacon.scene;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import static ec.edu.espol.main.MainBacon.SCENE;
 
 /**
  *
@@ -58,14 +58,14 @@ public class PaneMenuPrincipal {
         btn_dijkstra.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #EC00FF; -fx-text-fill: #F5F5F5;");
         btn_dijkstra.setPrefSize(150, 75);
         btn_dijkstra.setOnAction(e->{
-            scene.setRoot(o.getRoot());
+            SCENE.setRoot(o.getRoot());
         });
         
         btn_BFS = new Button("BFS");
         btn_BFS.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #00B6FF; -fx-text-fill: #F5F5F5;");
         btn_BFS.setPrefSize(150, 75);
         btn_BFS.setOnAction(e->{
-            scene.setRoot(o.getRoot());
+            SCENE.setRoot(o.getRoot());
         });
     }
 

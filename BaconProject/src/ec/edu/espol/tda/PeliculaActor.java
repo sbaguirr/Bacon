@@ -12,10 +12,14 @@ package ec.edu.espol.tda;
 public class PeliculaActor {
     private int idPelicula;
     private int idActor;
+    private Actor actor;
+    private Pelicula pelicula;
     
     public PeliculaActor(int idp, int ipa){
     this.idPelicula=idp;
     this.idActor=ipa;
+    actor=null;
+    pelicula=null;
     }
 
     public int getIdPelicula() {
@@ -25,6 +29,23 @@ public class PeliculaActor {
     public int getIdActor() {
         return idActor;
     }
+
+    public Actor getActor() {
+        return actor;
+    }
+
+    public void setActor(Actor actor) {
+        this.actor = actor;
+    }
+
+    public Pelicula getPelicula() {
+        return pelicula;
+    }
+
+    public void setPelicula(Pelicula pelicula) {
+        this.pelicula = pelicula;
+    }
+    
 
     @Override
     public int hashCode() {
@@ -57,7 +78,7 @@ public class PeliculaActor {
 
     @Override
     public String toString() {
-        return idPelicula + "-" + idActor;
+        return idPelicula + "-" + idActor +actor +"--"+ pelicula;
     }  
     
 }

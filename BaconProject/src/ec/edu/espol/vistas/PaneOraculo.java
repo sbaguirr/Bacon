@@ -5,7 +5,6 @@
  */
 package ec.edu.espol.vistas;
 
-import static ec.edu.espol.main.MainBacon.scene;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -15,6 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import static ec.edu.espol.main.MainBacon.SCENE;
 
 /**
  *
@@ -63,7 +63,7 @@ public class PaneOraculo {
         regresar.setPrefSize(150, 75);
         regresar.setOnAction(e->{
             PaneMenuPrincipal mp = new PaneMenuPrincipal();
-            scene.setRoot(mp.getRoot());
+            SCENE.setRoot(mp.getRoot());
         });
     }
 

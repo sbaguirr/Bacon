@@ -6,7 +6,6 @@
 package ec.edu.espol.tda;
 
 /**
- *
  * @author Tiffy
  */
 public class PeliculaActor {
@@ -14,18 +13,18 @@ public class PeliculaActor {
     private int idActor;
     private Actor actor;
     private Pelicula pelicula;
-    
-    public PeliculaActor(int idp, int ipa){
-    this.idPelicula=idp;
-    this.idActor=ipa;
-    actor=null;
-    pelicula=null;
+
+    public PeliculaActor(int idp, int ipa) {
+        this.idPelicula = idp;
+        this.idActor = ipa;
+        actor = null;
+        pelicula = null;
     }
 
     public int getIdPelicula() {
         return idPelicula;
     }
-    
+
     public int getIdActor() {
         return idActor;
     }
@@ -45,7 +44,7 @@ public class PeliculaActor {
     public void setPelicula(Pelicula pelicula) {
         this.pelicula = pelicula;
     }
-    
+
 
     @Override
     public int hashCode() {
@@ -78,7 +77,6 @@ public class PeliculaActor {
 
     @Override
     public String toString() {
-        return idPelicula + "-" + idActor +" "+actor +"--"+ pelicula;
-    }  
-    
+        return idPelicula + "-" + idActor + " " + actor + "--" + pelicula;
+    }
 }

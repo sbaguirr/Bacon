@@ -177,6 +177,7 @@ public class GraphLA<E> {
         if (o == null || d == null){
             return -1;
         } else {
+            this.dijkstra_internal(o);
             return caminoMinimoDijkstra(o,d);
         }
 

@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.main;
 
+import ec.edu.espol.model.Edge;
 import ec.edu.espol.model.GraphLA;
 import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.Pelicula;
@@ -40,6 +41,7 @@ public class Test {
         GraphLA<Integer> gra = Utils.generarGrafo();
         //System.out.println(gra.toString());
         System.out.println("desde George hasta Kevin hay : " + gra.caminoMinimo(841, 1));
+        System.out.println(gra.recorridoCaminoMinimo(3590, 1));       
     }
 
 }

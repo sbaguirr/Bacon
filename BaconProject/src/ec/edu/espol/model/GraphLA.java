@@ -111,7 +111,7 @@ public class GraphLA<E> {
             v.setAntecesor(null);
         });
     }
-
+    
     /**
      * BFS para obtener el camino minimo creo que falta lo de limpiar vertices
      *
@@ -137,7 +137,7 @@ public class GraphLA<E> {
             }
         }
     }
-
+    
     /**
      * @param data, el actor que escriba el usuario
      * @param destino, kevin Bacon
@@ -188,6 +188,36 @@ public class GraphLA<E> {
         } else {
             return 1+ caminoMinimoDijkstra(origen,destino.getAntecesor());
         }
+    }
+    
+    public List<Edge<E>> recorridoCaminoMinimo(E origen, E destino){
+        List<Vertex<E>> l = new LinkedList<>();
+        List<Edge<E>> lista = new LinkedList<>();
+        Vertex<E> vo = this.searchVertex(origen);
+        Vertex<E> vd = this.searchVertex(destino);
+        if(vo == null || vd == null) return lista;
+        dijkstra_internal(vo);
+        Vertex<E> tmp = vd;
+        Deque<Vertex<E>> pila = new LinkedList<>();
+        while((tmp != null)) {
+            pila.push(tmp);
+            tmp = tmp.getAntecesor();
+        }
+        while(!pila.isEmpty()){ 
+            l.add(pila.pop());
+        }
+        for(Vertex<E> a : l){
+            for(Edge<E> s : a.getEdgeList()){
+                lista.add(s);
+            }
+        }
+        ListIterator<Edge<E>> i = lista.listIterator();
+        while(i.hasNext()){
+            if(!l.contains(i.next().getDestino())){
+                i.remove();
+            }
+        }
+        return lista;
     }
 
 }

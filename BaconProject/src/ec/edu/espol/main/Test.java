@@ -40,6 +40,7 @@ public class Test {
         GraphLA<Integer> gra = Utils.generarGrafo();
         //System.out.println(gra.toString());
         System.out.println("desde George hasta Kevin hay : " + gra.caminoMinimo(841, 1));
+        System.out.println(gra.recorridoCaminoMinimo(3590, 1));
     }
 
 }

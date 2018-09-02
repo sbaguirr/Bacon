@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.main;
 
+import ec.edu.espol.model.GraphLA;
 import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.Pelicula;
 import ec.edu.espol.tda.PeliculaActor;
@@ -24,17 +25,21 @@ public class Test {
         //BORRAR ESTA CLASE LUEGO
         /* si vale
         HashMap<Integer, String> actores = Utils.cargarActoresMap();
-        HashMap<Integer, String> peliculas = Utils.CargarPeliculasMap();
+        HashMap<Integer, String> peliculas = Utils.cargarPeliculasMap();
         HashMap<Integer, List<PeliculaActor>> peliculasActor = Utils.cargarPeliActoresMap();
         PeliculaActor.vincularPeliculaActor(peliculasActor, actores, peliculas);
         System.out.println(peliculasActor);
-        */
-        
+         */
+ /*
         ArrayList<Actor> a = Utils.cargarActoresArrayList();
-        ArrayList<Pelicula> p = Utils.CargarPeliculasArrayList();
+        ArrayList<Pelicula> p = Utils.cargarPeliculasArrayList();
         ArrayList<PeliculaActor> apa = Utils.cargarPeliActorArrayList();
         Utils.vincularPeliculaActorList(apa, a, p);
         System.out.println(apa);
+         */
+        GraphLA<Integer> gra = Utils.generarGrafo();
+        //System.out.println(gra.toString());
+        System.out.println("desde George hasta Kevin hay : " + gra.caminoMinimo(841, 1));
     }
-    
+
 }

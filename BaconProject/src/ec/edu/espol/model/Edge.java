@@ -23,5 +23,8 @@ public class Edge<E> {
         return data;
     }
 
-
+    @Override
+    public String toString() {
+        return "Vertice Origen: " + origen + " Destino: " + destino + " pelicula: " + data;
+    }
 }

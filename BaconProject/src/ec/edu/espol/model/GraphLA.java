@@ -7,11 +7,13 @@ public class GraphLA<E> {
     private Set<Vertex<E>> actores;
     private Vertex<E> last;
     private boolean calculadoDijkstra;
+    private boolean dirigido;
 
-    public GraphLA() {
+    public GraphLA(boolean dirigido) {
         actores = new HashSet<>();
         last = null;
         calculadoDijkstra = false;
+        this.dirigido=dirigido;
     }
 
     public boolean addVertex(E data) {
@@ -35,12 +37,28 @@ public class GraphLA<E> {
     }
 
     public boolean addEdge(E origen, E destino, Object data) {
-        return false;
+       Vertex<E> vo = searchVertex(origen);
+        Vertex<E> vd = searchVertex(destino);
+        if (vo == null || vd == null) {
+            return false;
+        }
+        Edge<E> a = new Edge<>(vo, vd, data);
+        if (vo.getEdgeList().contains(a)) {
+            return false;
+        }
+        vo.getEdgeList().add(a);
+        if (!this.dirigido) {
+            Edge<E> b = new Edge<>(vd, vo, data);
+            vd.getEdgeList().add(b);
+        }
+        return true;
     }
 
     public boolean removeEdge(E origen, E destino) {
         return false;
     }
+    
+    
 
     private void dijkstra_internal(Vertex<E> origen) {
         desmarcarVertices();
@@ -118,6 +136,24 @@ public class GraphLA<E> {
             }
         }
         return u;
+    }
+    
+      
+     @Override
+    public String toString() {
+        StringBuilder g = new StringBuilder();
+        g.append("Vertices \n");
+        for (Vertex<E> t : this.actores) {
+            g.append(t.toString());
+            g.append("\n -------");
+
+            for (Edge<E> y : t.getEdgeList()) {
+                g.append("\n Arcos \n");
+                g.append(y.toString()).append("\n");
+            }
+            g.append("\n");
+        }
+        return g.toString();
     }
 
 }

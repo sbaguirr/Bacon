@@ -55,4 +55,9 @@ public class Vertex<E> {
     public List<Vertex<E>> getAdj(){
         return this.edgeList.stream().map(Edge::getDestino).collect(Collectors.toList());
     }
+    
+     @Override
+    public String toString() {
+        return  data.toString() ;
+    }
 }

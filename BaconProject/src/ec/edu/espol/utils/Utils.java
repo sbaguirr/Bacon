@@ -29,7 +29,7 @@ public class Utils {
         HashMap<Integer, Actor> actores_hashmap = new HashMap<>();
         HashMap<Integer, Pelicula> peliculas_hashmap = new HashMap<>();
         HashMap<Pelicula, List<Actor>> actores_en_pelicula = new HashMap<>();
-        GraphLA<Actor> nuevo = new GraphLA<>();
+        GraphLA<Actor> nuevo = new GraphLA<>(false);
         // Leer el archivo de actores
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_ACTORES_TEST))) {
             String linea;
@@ -144,7 +144,7 @@ public class Utils {
      */
     public static HashMap<Integer, String> cargarActoresMap() {
         HashMap<Integer, String> actores_hashmap = new HashMap<>();
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_ACTORES)))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_ACTORES_TEST)))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
@@ -157,7 +157,7 @@ public class Utils {
         return actores_hashmap;
     }
     
-    public static ArrayList<Pelicula> CargarPeliculasArrayList() {
+    public static ArrayList<Pelicula> cargarPeliculasArrayList() {
         ArrayList<Pelicula> lista = new ArrayList<>();
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULAS), "ISO-8859-1"))) {
             String cadena;
@@ -173,7 +173,7 @@ public class Utils {
         return lista;
     }
     
-     public static LinkedList<Pelicula> CargarPeliculasLinkedList() {
+     public static LinkedList<Pelicula> cargarPeliculasLinkedList() {
         LinkedList<Pelicula> lista = new LinkedList<>();
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULAS), "ISO-8859-1"))) {
             String cadena;
@@ -189,9 +189,9 @@ public class Utils {
         return lista;
     }
     
-     public static HashMap<Integer, String> CargarPeliculasMap() {
+     public static HashMap<Integer, String> cargarPeliculasMap() {
         HashMap<Integer, String> mapa = new HashMap<>();
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULAS), "ISO-8859-1"))) {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULAS_TEST), "ISO-8859-1"))) {
             String cadena;
             while ((cadena = in.readLine()) != null) {
                 String[] st = cadena.split("\\|");
@@ -284,5 +284,23 @@ public class Utils {
             }
         }
     }
+    
+    public static GraphLA<Integer> generarGrafo() {
+        GraphLA<Integer> grafo = new GraphLA<>(false);
+        HashMap<Integer, String> mapaActor = cargarActoresMap();
+        HashMap<Integer, String> mapaPelicula = cargarPeliculasMap();
+        HashMap<Integer, List<PeliculaActor>> mapaPeliActor = cargarPeliActoresMap();
+        vincularPeliculaActor(mapaPeliActor, mapaActor, mapaPelicula);
+        for (Map.Entry<Integer, String> entry : mapaActor.entrySet()) {
+            grafo.addVertex(entry.getKey());
+        }
+        for (Map.Entry<Integer, List<PeliculaActor>> entry : mapaPeliActor.entrySet()) {
+            combinations(entry.getValue(), 2).forEach((v) -> 
+                    grafo.addEdge(v.get(0).getIdActor(), v.get(1).getIdActor(), v.get(0).getPelicula()));
+        }
+        return grafo;
+    }
+    
+   
     
 }

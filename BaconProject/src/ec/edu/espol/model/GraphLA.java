@@ -20,7 +20,7 @@ public class GraphLA<E> {
         if (data == null || this.contains(data)) {
             return false;
         }
-        return actores.add(new Vertex(data));
+        return actores.add(new Vertex<>(data));
     }
 
     public boolean contains(E data) {
@@ -92,11 +92,13 @@ public class GraphLA<E> {
                     destino.setAntecesor(actual);
                     colaVertices.offer(destino);
                 }
-                
+
             }
             actual.setVisitado(true);
         }
         desmarcarVertices();
+        last= origen;
+        calculadoDijkstra=true;
     }
 
     private void desmarcarVertices() {
@@ -167,6 +169,25 @@ public class GraphLA<E> {
             g.append("\n");
         }
         return g.toString();
+    }
+
+    public int caminoMinimoDijkstra(E origen, E destino){
+        final Vertex<E> o = searchVertex(origen);
+        final Vertex<E> d =  searchVertex(destino);
+        if (o == null || d == null){
+            return -1;
+        } else {
+            return caminoMinimoDijkstra(o,d);
+        }
+
+    }
+
+    private int caminoMinimoDijkstra(Vertex<E> origen, Vertex<E> destino){
+        if(origen.equals(destino)){
+            return 0;
+        } else {
+            return 1+ caminoMinimoDijkstra(origen,destino.getAntecesor());
+        }
     }
 
 }

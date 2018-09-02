@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -96,8 +98,8 @@ public class Utils {
     }
 
     /**
-     * Método para cargar actores en un arrayList
-     * Este metodo se utiliza para realizar el reporte del proyecto
+     * Método para cargar actores en un arrayList Este metodo se utiliza para
+     * realizar el reporte del proyecto
      *
      * @return ArrayList<Actor>
      */
@@ -122,8 +124,8 @@ public class Utils {
     }
 
     /**
-     * Método para cargar actores en una LinkedList
-     * Este metodo se utiliza para realizar el reporte del proyecto
+     * Método para cargar actores en una LinkedList Este metodo se utiliza para
+     * realizar el reporte del proyecto
      *
      * @return LinkedList<Actor>
      */
@@ -134,8 +136,8 @@ public class Utils {
     }
 
     /**
-     * Método para cargar actores en un HashMap
-     * Este metodo se utiliza para realizar el reporte del proyecto
+     * Método para cargar actores en un HashMap Este metodo se utiliza para
+     * realizar el reporte del proyecto
      *
      * @return HashMap<Integer   ,       String>
      */
@@ -160,7 +162,7 @@ public class Utils {
         return lista;
     }
 
-    public static void cargarPeliculas(List<Pelicula> lista){
+    public static void cargarPeliculas(List<Pelicula> lista) {
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULAS), "ISO-8859-1"))) {
             String cadena;
             while ((cadena = in.readLine()) != null) {
@@ -168,7 +170,8 @@ public class Utils {
                 lista.add(new Pelicula(Integer.valueOf(p[0]), p[1]));
             }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, ex.toString());
         }
     }
 
@@ -187,11 +190,11 @@ public class Utils {
                 mapa.put(Integer.parseInt(st[0]), st[1]);
             }
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, ex.toString());
         }
         return mapa;
     }
-
 
     public static ArrayList<PeliculaActor> cargarPeliActorArrayList() {
         ArrayList<PeliculaActor> lista = new ArrayList<>();
@@ -205,7 +208,7 @@ public class Utils {
         return lista;
     }
 
-    public static void cargarPeliActor(List<PeliculaActor> lista){
+    public static void cargarPeliActor(List<PeliculaActor> lista) {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_EDGES)))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -276,11 +279,10 @@ public class Utils {
             grafo.addVertex(entry.getKey());
         }
         for (Map.Entry<Integer, List<PeliculaActor>> entry : mapaPeliActor.entrySet()) {
-            combinations(entry.getValue(), 2).forEach((v) ->
-                    grafo.addEdge(v.get(0).getIdActor(), v.get(1).getIdActor(), v.get(0).getPelicula()));
+            combinations(entry.getValue(), 2).forEach((v)
+                    -> grafo.addEdge(v.get(0).getIdActor(), v.get(1).getIdActor(), v.get(0).getPelicula()));
         }
         return grafo;
     }
-
 
 }

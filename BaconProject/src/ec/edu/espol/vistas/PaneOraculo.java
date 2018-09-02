@@ -16,6 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import static ec.edu.espol.main.MainBacon.SCENE;
 import ec.edu.espol.model.GraphLA;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -88,6 +90,31 @@ public class PaneOraculo {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(20);
         root.setCenter(vbox);
+    }
+     private void ventanaProblemasTecnicos() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Lo sentimos, estamos teniendo inconvenientes técnicos");
+        alert.showAndWait();
+    }
+
+    private void dialogoAdvertencia() {
+        Alert advertencia = new Alert(Alert.AlertType.WARNING);
+        advertencia.setTitle("Error");
+        advertencia.setContentText("Debe asegurarse de llenar todos los campos");
+        advertencia.setHeaderText(null);
+        advertencia.initStyle(StageStyle.UTILITY);
+        advertencia.showAndWait();
+    }
+
+    private void actorYaExiste() {
+        Alert advertencia = new Alert(Alert.AlertType.ERROR);
+        advertencia.setTitle(" :(  ");
+        advertencia.setContentText("El actor buscado no existe");
+        advertencia.setHeaderText(null);
+        advertencia.initStyle(StageStyle.UTILITY);
+        advertencia.showAndWait();
     }
     
       public void calcularBacon() {

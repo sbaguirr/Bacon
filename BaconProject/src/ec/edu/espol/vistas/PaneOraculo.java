@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import static ec.edu.espol.main.MainBacon.SCENE;
+import ec.edu.espol.model.GraphLA;
 
 /**
  *
@@ -25,13 +26,17 @@ public class PaneOraculo {
     private Label titulo;
     private Button calcular, regresar;
     private TextField actor;
+    private Boolean dijkstra;
+    private GraphLA grafo;
     
     public Pane getRoot() {
         return root;
     }
     
-    public PaneOraculo() {
+    public PaneOraculo(Boolean di) {
         root = new BorderPane();
+        this.dijkstra=di;
+         // grafo= Utils.generar();
         inicializarObjetos();
         llamarMetodos();
     }  
@@ -39,6 +44,7 @@ public class PaneOraculo {
     private void llamarMetodos() {
         crearSeccionTitulo();
         crearSeccionPreguntas();
+        calcularBacon();
     }
      
     private void crearSeccionTitulo() {
@@ -82,5 +88,24 @@ public class PaneOraculo {
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(20);
         root.setCenter(vbox);
+    }
+    
+      public void calcularBacon() {
+       calcular.setOnAction(e->{
+           if(this.dijkstra){
+           calcularDijkstra();
+           }else{
+           calcularBFS();
+           }
+       });
+    }
+    
+    private void calcularDijkstra(){
+       
+    }
+    
+    private void calcularBFS(){
+    
+        
     }
 }

@@ -31,7 +31,6 @@ public class PaneMenuPrincipal {
     
     public PaneMenuPrincipal() {
         root = new BorderPane();
-        o = new PaneOraculo();
         inicializarObjetos();
         llamarMetodos();
     }  
@@ -58,6 +57,7 @@ public class PaneMenuPrincipal {
         btn_dijkstra.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #EC00FF; -fx-text-fill: #F5F5F5;");
         btn_dijkstra.setPrefSize(150, 75);
         btn_dijkstra.setOnAction(e->{
+             o = new PaneOraculo(true);
             SCENE.setRoot(o.getRoot());
         });
         
@@ -65,6 +65,7 @@ public class PaneMenuPrincipal {
         btn_BFS.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #00B6FF; -fx-text-fill: #F5F5F5;");
         btn_BFS.setPrefSize(150, 75);
         btn_BFS.setOnAction(e->{
+             o = new PaneOraculo(false);
             SCENE.setRoot(o.getRoot());
         });
     }

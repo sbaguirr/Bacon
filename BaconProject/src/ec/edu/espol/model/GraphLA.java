@@ -76,7 +76,8 @@ public class GraphLA<E> {
     private void dijkstra_internal(Vertex<E> origen) {
         desmarcarVertices();
         reiniciarDistancias();
-        PriorityQueue<Vertex<E>> colaVertices = new PriorityQueue<>();
+        origen.setDistancia(0);
+        PriorityQueue<Vertex<E>> colaVertices = new PriorityQueue<>((Vertex<E> p1, Vertex<E> p2) -> p1.getDistancia() - p2.getDistancia());
         colaVertices.offer(origen);
         while (!colaVertices.isEmpty()) {
             Vertex<E> actual = colaVertices.poll();
@@ -89,8 +90,9 @@ public class GraphLA<E> {
                 if (destino.getDistancia() > nueva_distancia) {
                     destino.setDistancia(nueva_distancia);
                     destino.setAntecesor(actual);
+                    colaVertices.offer(destino);
                 }
-                colaVertices.offer(destino);
+                
             }
             actual.setVisitado(true);
         }

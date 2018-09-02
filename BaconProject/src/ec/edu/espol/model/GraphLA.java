@@ -13,12 +13,27 @@ public class GraphLA<E> {
         actores = new HashSet<>();
         last = null;
         calculadoDijkstra = false;
-        this.dirigido=dirigido;
+        this.dirigido = dirigido;
     }
 
     public boolean addVertex(E data) {
+        if (data == null || this.contains(data)) {
+            return false;
+        }
+        return actores.add(new Vertex(data));
+    }
+
+    public boolean contains(E data) {
+        if (data != null) {
+            for (Vertex c : actores) {
+                if (c.getData().equals(data)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
+
     private Vertex<E> searchVertex(E data) {
         for (Vertex<E> c : actores) {
             if (c.getData().equals(data)) {
@@ -27,8 +42,8 @@ public class GraphLA<E> {
         }
         return null;
     }
-    
-     private boolean isEmpty() {
+
+    private boolean isEmpty() {
         return this.actores.isEmpty();
     }
 
@@ -37,7 +52,7 @@ public class GraphLA<E> {
     }
 
     public boolean addEdge(E origen, E destino, Object data) {
-       Vertex<E> vo = searchVertex(origen);
+        Vertex<E> vo = searchVertex(origen);
         Vertex<E> vd = searchVertex(destino);
         if (vo == null || vd == null) {
             return false;
@@ -57,8 +72,6 @@ public class GraphLA<E> {
     public boolean removeEdge(E origen, E destino) {
         return false;
     }
-    
-    
 
     private void dijkstra_internal(Vertex<E> origen) {
         desmarcarVertices();
@@ -94,12 +107,11 @@ public class GraphLA<E> {
             v.setAntecesor(null);
         });
     }
-    
 
     /**
-     * BFS para obtener el camino minimo
-     * creo que falta lo de limpiar vertices 
-     * @param data 
+     * BFS para obtener el camino minimo creo que falta lo de limpiar vertices
+     *
+     * @param data
      */
     private void bfs(E data) {
         Vertex<E> v = searchVertex(data);
@@ -137,9 +149,8 @@ public class GraphLA<E> {
         }
         return u;
     }
-    
-      
-     @Override
+
+    @Override
     public String toString() {
         StringBuilder g = new StringBuilder();
         g.append("Vertices \n");

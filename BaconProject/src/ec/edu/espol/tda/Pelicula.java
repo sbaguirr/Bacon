@@ -69,5 +69,12 @@ public class Pelicula {
     public String toString() {
         return this.id + "-" + this.nombrePelicula;
     }
+    public static String buscarNombrePelicula(HashMap<Integer, String> mapaPelicula, Integer id) {
+        String nombrePelicula = mapaPelicula.get(id);
+        if (nombrePelicula != null) {
+            return  nombrePelicula;
+        }
+        return null;
+    }
 
 }

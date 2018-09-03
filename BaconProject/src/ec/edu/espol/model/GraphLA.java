@@ -47,10 +47,6 @@ public class GraphLA<E> {
         return this.actores.isEmpty();
     }
 
-    public boolean removeVertex(E data) {
-        return false;
-    }
-
     public boolean addEdge(E origen, E destino, Object data) {
         Vertex<E> vo = searchVertex(origen);
         Vertex<E> vd = searchVertex(destino);
@@ -69,9 +65,6 @@ public class GraphLA<E> {
         return true;
     }
 
-    public boolean removeEdge(E origen, E destino) {
-        return false;
-    }
 
     private void dijkstra_internal(Vertex<E> origen) {
         desmarcarVertices();
@@ -192,7 +185,7 @@ public class GraphLA<E> {
         }
     }
 
-    public List<Edge<E>> recorridoCaminoMinimo(E origen, E destino) {
+    public List<Edge<E>> recorridoCaminoMinimo(E origen, E destino,Boolean dijsktra) {
         List<Vertex<E>> l = new LinkedList<>();
         List<Edge<E>> lista = new LinkedList<>();
         Vertex<E> vo = this.searchVertex(origen);
@@ -200,7 +193,7 @@ public class GraphLA<E> {
         if (vo == null || vd == null) {
             return lista;
         }
-        dijkstra_internal(vo);//this.bfs(vo.getData());
+        metodo(dijsktra, vo);
         Vertex<E> tmp = vd;
         Deque<Vertex<E>> pila = new LinkedList<>();
         while ((tmp != null)) {
@@ -222,5 +215,12 @@ public class GraphLA<E> {
             }
         }
         return lista;
+    }
+     private void metodo(Boolean dijkstra, Vertex<E> vo) {
+        if (dijkstra) {
+            dijkstra_internal(vo);
+        } else {
+            this.bfs(vo.getData());
+        }
     }
 }

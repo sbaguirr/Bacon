@@ -87,5 +87,12 @@ public class Actor {
         }
         return null;
     }
+    public static String buscarNombreActor(HashMap<Integer, String> mapaActor, Integer id) {
+        String nombreActor = mapaActor.get(id);
+        if (nombreActor != null) {
+            return nombreActor;
+        }
+        return null;
+    }
     
 }

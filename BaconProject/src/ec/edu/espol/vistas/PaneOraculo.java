@@ -15,12 +15,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import static ec.edu.espol.main.MainBacon.SCENE;
+import ec.edu.espol.model.Edge;
 import ec.edu.espol.model.GraphLA;
+import ec.edu.espol.tda.Actor;
+import ec.edu.espol.tda.Pelicula;
 import ec.edu.espol.utils.Utils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextArea;
 import javafx.stage.StageStyle;
 
 /**
@@ -38,6 +42,7 @@ public class PaneOraculo {
     private final HashMap<Integer, String> peliculas;
     private final HashMap<Integer, String> actores;
     private final HashMap<Integer, List<Integer>> peliculaActor;
+    private TextArea v;
 
     public Pane getRoot() {
         return root;
@@ -75,7 +80,7 @@ public class PaneOraculo {
         h.setAlignment(Pos.CENTER);
         hbox.getChildren().addAll(titulo, actor);
         hbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(titleLbl, hbox, h);
+        vbox.getChildren().addAll(titleLbl, hbox, h,v);
         vbox.setAlignment(Pos.CENTER);
         vbox.setSpacing(15);
         root.setTop(vbox);
@@ -85,6 +90,8 @@ public class PaneOraculo {
         titulo = new Label("Distancia de Kevin Bacon hasta: ");
         titulo.setStyle("-fx-font: 14 Verdana;");
         n = new Label("El n° Bacon es: ");
+        v = new TextArea();
+        v.setEditable(false);
         numeroBacon = new Label();
         n.setStyle("-fx-font: 15 Verdana; -fx-background-color: #D500FF; -fx-text-fill: #F5F5F5;");
         n.setPrefSize(200, 50);
@@ -107,7 +114,7 @@ public class PaneOraculo {
     }
 
     private void crearSeccionOpciones() {
-        
+
     }
 
     private void seccionNumeroBacon() {
@@ -144,11 +151,15 @@ public class PaneOraculo {
                 int id = searchIdActor(act);
                 if (id != 0) {
                     if (this.dijkstra) {
+                        v.clear();
                         String d = String.valueOf(calcularDijkstra(id));
                         this.numeroBacon.setText(d);
+                        mostrarCamino(true, id);
                     } else {
+                        v.clear();
                         String b = String.valueOf(calcularBFS(id));
                         this.numeroBacon.setText(b);
+                        mostrarCamino(false, id);
                     }
                 } else {
                     this.actorNoExiste();
@@ -178,5 +189,17 @@ public class PaneOraculo {
     private int calcularBFS(int id) {
         int idKB = searchIdActor("kevin bacon");
         return this.grafo.caminoMinimo(id, idKB);
+    }
+
+    private void mostrarCamino(Boolean metodo, Integer origen) {
+        int idKB = searchIdActor("kevin bacon");
+        List<Edge<Integer>> y = grafo.recorridoCaminoMinimo(origen, idKB, metodo);
+        for (Edge<Integer> t : y) {
+            String nombreOrigen = Actor.buscarNombreActor(actores, t.getOrigen().getData());
+            String pelicula = Pelicula.buscarNombrePelicula(peliculas, Integer.parseInt(t.getData().toString()));
+            String nombreDestino = Actor.buscarNombreActor(actores, t.getDestino().getData());
+            String g = nombreOrigen + " participó en " + pelicula + " con " + nombreDestino + "\n ";
+            v.appendText(g);
+        }
     }
 }

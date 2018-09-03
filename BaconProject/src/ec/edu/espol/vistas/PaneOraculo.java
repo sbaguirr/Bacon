@@ -14,19 +14,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import static ec.edu.espol.main.MainBacon.SCENE;
 import ec.edu.espol.model.Edge;
 import ec.edu.espol.model.GraphLA;
 import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.Pelicula;
 import ec.edu.espol.utils.Utils;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
-import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.StageStyle;
@@ -38,14 +32,18 @@ import javafx.stage.StageStyle;
 public class PaneOraculo {
 
     private final BorderPane root;
-    private Label titulo, numeroBacon, n;
-    private Button calcular, regresar;
+    private Label titulo;
+    private Label numeroBacon;
+    private Label n;
+    private Button calcular;
+    private Button regresar;
     private TextField actor;
-    private Boolean dijkstra;
+    private boolean dijkstra;
     private GraphLA grafo;
-    private final HashMap<Integer, String> peliculas;
-    private final HashMap<Integer, String> actores;
-    private final HashMap<Integer, List<Integer>> peliculaActor;
+    private final String nombreKBacon;
+    private final Map<Integer, String> peliculas;
+    private final Map<Integer, String> actores;
+    private final Map<Integer, List<Integer>> peliculaActor;
     private TextArea v;
 
     public Pane getRoot() {
@@ -54,11 +52,12 @@ public class PaneOraculo {
 
     public PaneOraculo(Boolean di) {
         root = new BorderPane();
+        nombreKBacon = "kevin bacon";
         this.dijkstra = di;
         peliculas = Utils.cargarPeliculasMap();
         actores = Utils.cargarActoresMap();
         peliculaActor = Utils.cargarPeliActoresMapNew();
-        grafo = Utils.generarGrafo(actores, peliculas, peliculaActor);
+        grafo = Utils.generarGrafo(actores, peliculaActor);
         inicializarObjetos();
         llamarMetodos();
     }
@@ -172,7 +171,7 @@ public class PaneOraculo {
 
     private int searchIdActor(String actor) {
         int id = 0;
-        Map<Integer, String> mapa = Utils.cargarActoresMap();
+        Map<Integer, String> mapa = this.actores;
         for (Map.Entry<Integer, String> m : mapa.entrySet()) {
             if (m.getValue().equals(actor)) {
                 return m.getKey();
@@ -182,17 +181,17 @@ public class PaneOraculo {
     }
 
     private int calcularDijkstra(int id) {
-        int idKB = searchIdActor("kevin bacon");
+        int idKB = searchIdActor(nombreKBacon);
         return this.grafo.caminoMinimoDijkstra(id, idKB);
     }
 
     private int calcularBFS(int id) {
-        int idKB = searchIdActor("kevin bacon");
+        int idKB = searchIdActor(nombreKBacon);
         return this.grafo.caminoMinimo(id, idKB);
     }
 
     private void mostrarCamino(Boolean metodo, Integer origen) {
-        int idKB = searchIdActor("kevin bacon");
+        int idKB = searchIdActor(nombreKBacon);
         List<Edge<Integer>> y = grafo.recorridoCaminoMinimo(origen, idKB, metodo);
         for (Edge<Integer> t : y) {
             String nombreOrigen = Actor.buscarNombreActor(actores, t.getOrigen().getData());

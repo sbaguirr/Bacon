@@ -55,24 +55,15 @@ public class PeliculaActor {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof PeliculaActor)){
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final PeliculaActor other = (PeliculaActor) obj;
-        if (this.idPelicula != other.idPelicula) {
-            return false;
-        }
-        if (this.idActor != other.idActor) {
-            return false;
-        }
-        return true;
+        }   
+        PeliculaActor e = (PeliculaActor)o;
+        return ( this.idActor == e.getIdActor() &&
+                 this.idPelicula == e.getIdPelicula() && 
+                 this.actor.equals(e.getActor()) &&
+                 this.pelicula.equals(e.getPelicula()));
     }
 
     @Override

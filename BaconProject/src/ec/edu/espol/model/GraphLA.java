@@ -9,10 +9,43 @@ public class GraphLA<E> {
     private boolean calculadoDijkstra;
     private boolean dirigido;
 
+    public Set<Vertex<E>> getActores() {
+        return actores;
+    }
+
+    public void setActores(Set<Vertex<E>> actores) {
+        this.actores = actores;
+    }
+
+    public Vertex<E> getLast() {
+        return last;
+    }
+
+    public void setLast(Vertex<E> last) {
+        this.last = last;
+    }
+
+    public boolean isCalculadoDijkstra() {
+        return calculadoDijkstra;
+    }
+
+    public void setCalculadoDijkstra(boolean calculadoDijkstra) {
+        this.calculadoDijkstra = calculadoDijkstra;
+    }
+
+    public boolean isDirigido() {
+        return dirigido;
+    }
+
+    public void setDirigido(boolean dirigido) {
+        this.dirigido = dirigido;
+    }
+
+    
     public GraphLA(boolean dirigido) {
-        actores = new HashSet<>();
-        last = null;
-        calculadoDijkstra = false;
+        this.actores = new HashSet<>();
+        this.last = null;
+        this.calculadoDijkstra = false;
         this.dirigido = dirigido;
     }
 
@@ -66,7 +99,7 @@ public class GraphLA<E> {
     }
 
 
-    private void dijkstra_internal(Vertex<E> origen) {
+    private void dijkstraInternal(Vertex<E> origen) {
         desmarcarVertices();
         reiniciarDistancias();
         origen.setDistancia(0);
@@ -79,9 +112,9 @@ public class GraphLA<E> {
             }
             for (Edge<E> arco : actual.getEdgeList()) {
                 Vertex<E> destino = arco.getDestino();
-                int nueva_distancia = actual.getDistancia() + 1;
-                if (destino.getDistancia() > nueva_distancia) {
-                    destino.setDistancia(nueva_distancia);
+                int nuevaDistancia = actual.getDistancia() + 1;
+                if (destino.getDistancia() > nuevaDistancia) {
+                    destino.setDistancia(nuevaDistancia);
                     destino.setAntecesor(actual);
                     colaVertices.offer(destino);
                 }
@@ -90,12 +123,12 @@ public class GraphLA<E> {
             actual.setVisitado(true);
         }
         desmarcarVertices();
-        last = origen;
-        calculadoDijkstra = true;
+        this.setLast(origen);
+        this.setCalculadoDijkstra(true);
     }
 
     private void desmarcarVertices() {
-        actores.forEach((v) -> v.setVisitado(false));
+        actores.forEach(v -> v.setVisitado(false));
     }
 
     private void reiniciarDistancias() {
@@ -171,7 +204,7 @@ public class GraphLA<E> {
         if (o == null || d == null) {
             return -1;
         } else {
-            this.dijkstra_internal(o);
+            this.dijkstraInternal(o);
             return caminoMinimoDijkstra(o, d);
         }
 
@@ -218,7 +251,7 @@ public class GraphLA<E> {
     }
      private void metodo(Boolean dijkstra, Vertex<E> vo) {
         if (dijkstra) {
-            dijkstra_internal(vo);
+            dijkstraInternal(vo);
         } else {
             this.bfs(vo.getData());
         }

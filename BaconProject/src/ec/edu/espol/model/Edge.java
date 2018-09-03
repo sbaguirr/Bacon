@@ -4,7 +4,8 @@ import java.util.Objects;
 
 public class Edge<E> {
 
-    private Vertex<E> origen, destino;
+    private Vertex<E> origen;
+    private Vertex<E> destino;
     private Object data;
 
     public Edge(Vertex<E> origen, Vertex<E> destino, Object data) {

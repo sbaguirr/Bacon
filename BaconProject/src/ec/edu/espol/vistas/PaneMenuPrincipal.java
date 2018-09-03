@@ -22,7 +22,8 @@ import static ec.edu.espol.main.MainBacon.SCENE;
 public class PaneMenuPrincipal {
     private final BorderPane root;
     private Label titulo;
-    private Button btn_dijkstra, btn_BFS;
+    private Button btnDijkstra;
+    private Button btnBfs;
     private PaneOraculo o;
 
     public Pane getRoot() {
@@ -53,18 +54,18 @@ public class PaneMenuPrincipal {
         titulo = new Label("¿Qué método de búsqueda desea utilizar?");
         titulo.setStyle("-fx-font: 20 Verdana;");
         
-        btn_dijkstra = new Button("Dijsktra");
-        btn_dijkstra.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #EC00FF; -fx-text-fill: #F5F5F5;");
-        btn_dijkstra.setPrefSize(150, 75);
-        btn_dijkstra.setOnAction(e->{
+        btnDijkstra = new Button("Dijsktra");
+        btnDijkstra.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #EC00FF; -fx-text-fill: #F5F5F5;");
+        btnDijkstra.setPrefSize(150, 75);
+        btnDijkstra.setOnAction(e->{
              o = new PaneOraculo(true);
             SCENE.setRoot(o.getRoot());
         });
         
-        btn_BFS = new Button("BFS");
-        btn_BFS.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #00B6FF; -fx-text-fill: #F5F5F5;");
-        btn_BFS.setPrefSize(150, 75);
-        btn_BFS.setOnAction(e->{
+        btnBfs = new Button("BFS");
+        btnBfs.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #00B6FF; -fx-text-fill: #F5F5F5;");
+        btnBfs.setPrefSize(150, 75);
+        btnBfs.setOnAction(e->{
              o = new PaneOraculo(false);
             SCENE.setRoot(o.getRoot());
         });
@@ -73,7 +74,7 @@ public class PaneMenuPrincipal {
     private void crearSeccionOpciones() {
         VBox vbox = new VBox();
         HBox h = new HBox();
-        h.getChildren().addAll(btn_dijkstra, btn_BFS);
+        h.getChildren().addAll(btnDijkstra, btnBfs);
         h.setSpacing(25);
         h.setPadding(new Insets(0, 10, 0, 10));
         h.setAlignment(Pos.CENTER);

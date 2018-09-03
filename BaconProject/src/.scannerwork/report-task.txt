@@ -1,0 +1,6 @@
+projectKey=rmpincay2018
+serverUrl=http://200.9.176.59:9000
+serverVersion=7.1.0.11001
+dashboardUrl=http://200.9.176.59:9000/dashboard/index/rmpincay2018
+ceTaskId=AWWdoGS0AS53-AslVgbk
+ceTaskUrl=http://200.9.176.59:9000/api/ce/task?id=AWWdoGS0AS53-AslVgbk

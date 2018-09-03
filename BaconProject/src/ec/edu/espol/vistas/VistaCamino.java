@@ -1,6 +1,5 @@
 package ec.edu.espol.vistas;
 
-import com.fxgraph.cells.AbstractCell;
 import com.fxgraph.graph.Graph;
 import com.fxgraph.graph.Model;
 import com.fxgraph.layout.RandomLayout;
@@ -9,7 +8,6 @@ import ec.edu.espol.model.Vertex;
 import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.ActorCell;
 import javafx.scene.Scene;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -56,16 +54,7 @@ public class VistaCamino {
         ventana.setScene(grafo);
         ventana.show();
 
-        /*
-        Graph g = new SingleGraph("Camino");
-        camino.forEach(edge -> {
-
-            Node before = g.getNode(idOrigen) == null ? g.addNode(idOrigen) : g.getNode(idOrigen);
-            Node after = g.addNode(String.valueOf(idDestino));
-            g.addEdge(String.format("%s|%s", idOrigen, idDestino), before, after);
-        });
-        g.display(true);
-        */
+       
     }
 
 }

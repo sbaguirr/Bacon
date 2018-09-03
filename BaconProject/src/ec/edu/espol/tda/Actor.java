@@ -5,9 +5,8 @@
  */
 package ec.edu.espol.tda;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 /**
  *
@@ -47,31 +46,20 @@ public class Actor {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+    public boolean equals(Object o) {
+        if (o == null || !(o instanceof Actor)){
             return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Actor other = (Actor) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.nombres, other.nombres)) {
-            return false;
-        }
-        return true;
+        }   
+        Actor e = (Actor)o;
+        return ( this.id == e.getId() &&
+                 this.nombres.equals(e.getNombres()));
     }
 
     @Override
     public String toString() {
         return id + "-" + nombres;
     }
-    public static Actor buscarActor(HashMap<Integer, String> mapaActor, Integer id) {
+    public static Actor buscarActor(Map<Integer, String> mapaActor, Integer id) {
         String nombreActor = mapaActor.get(id);
         if (nombreActor != null) {
             return new Actor(id, nombreActor);
@@ -81,13 +69,14 @@ public class Actor {
     
     public static Actor buscarActorList(List<Actor> listActor, Integer id) {
         for(Actor a: listActor){
-        if(a.getId()==id){
-        return new Actor(id, a.getNombres());
-        }
+            if(a.getId()==id){
+                return new Actor(id, a.getNombres());
+            }
         }
         return null;
     }
-    public static String buscarNombreActor(HashMap<Integer, String> mapaActor, Integer id) {
+    
+    public static String buscarNombreActor(Map<Integer, String> mapaActor, Integer id) {
         String nombreActor = mapaActor.get(id);
         if (nombreActor != null) {
             return nombreActor;

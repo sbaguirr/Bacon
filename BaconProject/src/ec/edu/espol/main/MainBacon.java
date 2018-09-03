@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  * @author ROSA
  */
 public class MainBacon extends Application {
-    public final static Scene SCENE =new Scene(new Group(),600,550);
+    public static final Scene SCENE =new Scene(new Group(),600,550);
     @Override
     public void start(Stage primaryStage) {
         PaneMenuPrincipal mp = new PaneMenuPrincipal();

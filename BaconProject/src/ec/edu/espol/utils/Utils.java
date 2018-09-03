@@ -20,66 +20,13 @@ import java.util.stream.Stream;
 
 public class Utils {
 
-    private static final String PATH_ACTORES_TEST = "src/ec/edu/espol/recursos/actores-test.txt";
-    private static final String PATH_ACTORES = "src/ec/edu/espol/recursos/actores.txt";
-    private static final String PATH_PELICULAS_TEST = "src/ec/edu/espol/recursos/peliculas-test.txt";
-    private static final String PATH_PELICULAS = "src/ec/edu/espol/recursos/peliculas.txt";
-    private static final String PATH_EDGES = "src/ec/edu/espol/recursos/pelicula-actores-test.txt";
-    private static final String PATH_PELICULA_ACTOR = "src/ec/edu/espol/recursos/pelicula-actores.txt";
-
-    public static GraphLA<Actor> generarOraculo() {
-        HashMap<Integer, Actor> actores_hashmap = new HashMap<>();
-        HashMap<Integer, Pelicula> peliculas_hashmap = new HashMap<>();
-        HashMap<Pelicula, List<Actor>> actores_en_pelicula = new HashMap<>();
-        GraphLA<Actor> nuevo = new GraphLA<>(false);
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH_ACTORES))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] separado = linea.split("\\|");
-                int id = Integer.parseInt(separado[0]);
-                final Actor actor_actual = new Actor(id, separado[1]);
-                actores_hashmap.put(id, actor_actual);
-                nuevo.addVertex(actor_actual);
-            }
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger("Log");
-            logger.log(Level.INFO, e.toString());
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH_PELICULAS))) {
-            String linea;
-            final Pattern p = Pattern.compile("([0-9]+)\\\\|([^(]*)\\\\(([0-9]+)\\\\)");
-            while ((linea = br.readLine()) != null) {
-                final Matcher matcher = p.matcher(linea);
-                final int id = Integer.parseInt(matcher.group(1));
-                final Pelicula peli = new Pelicula(id, matcher.group(2).trim(), matcher.group(3));
-                peliculas_hashmap.put(id, peli);
-            }
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger("Log");
-            logger.log(Level.INFO, e.toString());
-        }
-
-        try (BufferedReader br = new BufferedReader(new FileReader(PATH_PELICULA_ACTOR))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] separado = linea.split("\\|");
-                final Pelicula pelicula = peliculas_hashmap.get(Integer.parseInt(separado[0]));
-                final Actor actor = actores_hashmap.get(Integer.parseInt(separado[1]));
-                final List<Actor> lista_actores = actores_en_pelicula.getOrDefault(pelicula, new LinkedList<>());
-                lista_actores.add(actor);
-                actores_en_pelicula.putIfAbsent(pelicula, lista_actores);
-            }
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger("Log");
-            logger.log(Level.INFO, e.toString());
-        }
-        for (Map.Entry<Pelicula, List<Actor>> entry : actores_en_pelicula.entrySet()) {
-            final List<Actor> value = entry.getValue();
-            combinations(value, 2).forEach((v) -> nuevo.addEdge(v.get(0), v.get(1), entry.getKey()));
-        }
-        return nuevo;
+    public Utils() {
+        throw new IllegalStateException("Utility class");
     }
+
+    private static final String PATH_ACTORES = "src/ec/edu/espol/recursos/actores.txt";
+    private static final String PATH_PELICULAS = "src/ec/edu/espol/recursos/peliculas.txt";
+    private static final String PATH_PELICULA_ACTOR = "src/ec/edu/espol/recursos/pelicula-actores.txt";
 
     /*
     https://stackoverflow.com/questions/28515516/enumeration-combinations-of-k-elements-using-java-8
@@ -99,13 +46,7 @@ public class Utils {
         return newList;
     }
 
-    /**
-     * Método para cargar actores en un arrayList Este metodo se utiliza para
-     * realizar el reporte del proyecto
-     *
-     * @return ArrayList<Actor>
-     */
-    public static ArrayList<Actor> cargarActoresArrayList() {
+    public static List<Actor> cargarActoresArrayList() {
         ArrayList<Actor> lista = new ArrayList<>();
         cargarActores(lista);
         return lista;
@@ -117,8 +58,8 @@ public class Utils {
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                final Actor actor_actual = new Actor(id, separado[1].toLowerCase());
-                lista.add(actor_actual);
+                final Actor actorActual = new Actor(id, separado[1].toLowerCase());
+                lista.add(actorActual);
             }
         } catch (IOException e) {
             Logger logger = Logger.getLogger("Log");
@@ -127,40 +68,33 @@ public class Utils {
     }
 
     /**
-     * Método para cargar actores en una LinkedList Este metodo se utiliza para
+     * Metodo para cargar actores en una LinkedList Este metodo se utiliza para
      * realizar el reporte del proyecto
-     *
-     * @return LinkedList<Actor>
+     * @return LinkedList
      */
-    public static LinkedList<Actor> cargarActoresLinkedList() {
+    public static List<Actor> cargarActoresLinkedList() {
         LinkedList<Actor> lista = new LinkedList<>();
         cargarActores(lista);
         return lista;
     }
 
-    /**
-     * Método para cargar actores en un HashMap Este metodo se utiliza para
-     * realizar el reporte del proyecto
-     *
-     * @return HashMap<Integer   ,       String>
-     */
-    public static HashMap<Integer, String> cargarActoresMap() {
-        HashMap<Integer, String> actores_hashmap = new HashMap<>();
+    public static Map<Integer, String> cargarActoresMap() {
+        HashMap<Integer, String> actoresHashmap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_ACTORES)))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                actores_hashmap.put(id, separado[1].toLowerCase());
+                actoresHashmap.put(id, separado[1].toLowerCase());
             }
         } catch (IOException e) {
             Logger logger = Logger.getLogger("Log");
             logger.log(Level.INFO, e.toString());
         }
-        return actores_hashmap;
+        return actoresHashmap;
     }
 
-    public static ArrayList<Pelicula> cargarPeliculasArrayList() {
+    public static List<Pelicula> cargarPeliculasArrayList() {
         ArrayList<Pelicula> lista = new ArrayList<>();
         cargarPeliculas(lista);
         return lista;
@@ -179,13 +113,13 @@ public class Utils {
         }
     }
 
-    public static LinkedList<Pelicula> cargarPeliculasLinkedList() {
+    public static List<Pelicula> cargarPeliculasLinkedList() {
         LinkedList<Pelicula> lista = new LinkedList<>();
         cargarPeliculas(lista);
         return lista;
     }
 
-    public static HashMap<Integer, String> cargarPeliculasMap() {
+    public static Map<Integer, String> cargarPeliculasMap() {
         HashMap<Integer, String> mapa = new HashMap<>();
         try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULAS), "ISO-8859-1"))) {
             String cadena;
@@ -200,13 +134,13 @@ public class Utils {
         return mapa;
     }
 
-    public static ArrayList<PeliculaActor> cargarPeliActorArrayList() {
+    public static List<PeliculaActor> cargarPeliActorArrayList() {
         ArrayList<PeliculaActor> lista = new ArrayList<>();
         cargarPeliActor(lista);
         return lista;
     }
 
-    public static LinkedList<PeliculaActor> cargarPeliActorLinkedList() {
+    public static List<PeliculaActor> cargarPeliActorLinkedList() {
         LinkedList<PeliculaActor> lista = new LinkedList<>();
         cargarPeliActor(lista);
         return lista;
@@ -218,8 +152,8 @@ public class Utils {
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                final PeliculaActor pelicula_actor = new PeliculaActor(id, Integer.parseInt(separado[1]));
-                lista.add(pelicula_actor);
+                final PeliculaActor peliculaActor = new PeliculaActor(id, Integer.parseInt(separado[1]));
+                lista.add(peliculaActor);
             }
         } catch (IOException e) {
             Logger logger = Logger.getLogger("Log");
@@ -227,51 +161,51 @@ public class Utils {
         }
     }
 
-    public static HashMap<Integer, List<PeliculaActor>> cargarPeliActoresMap() {
-        HashMap<Integer, List<PeliculaActor>> actores_hashmap = new HashMap<>();
+    public static Map<Integer, List<PeliculaActor>> cargarPeliActoresMap() {
+        HashMap<Integer, List<PeliculaActor>> actoresHashmap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULA_ACTOR)))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                if (!actores_hashmap.containsKey(id)) {
+                if (!actoresHashmap.containsKey(id)) {
                     ArrayList<PeliculaActor> a = new ArrayList<>();
                     a.add(new PeliculaActor(id, Integer.valueOf(separado[1])));
-                    actores_hashmap.put(id, a);
+                    actoresHashmap.put(id, a);
                 } else {
-                    actores_hashmap.get(id).add(new PeliculaActor(id, Integer.valueOf(separado[1])));
+                    actoresHashmap.get(id).add(new PeliculaActor(id, Integer.valueOf(separado[1])));
                 }
             }
         } catch (IOException e) {
             Logger logger = Logger.getLogger("Log");
             logger.log(Level.INFO, e.toString());
         }
-        return actores_hashmap;
+        return actoresHashmap;
     }
 
-    public static HashMap<Integer, List<Integer>> cargarPeliActoresMapNew() {
-        HashMap<Integer, List<Integer>> actores_hashmap = new HashMap<>();
+    public static Map<Integer, List<Integer>> cargarPeliActoresMapNew() {
+        HashMap<Integer, List<Integer>> actoresHashmap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULA_ACTOR)))) {
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                if (!actores_hashmap.containsKey(id)) {
+                if (!actoresHashmap.containsKey(id)) {
                     ArrayList<Integer> a = new ArrayList<>();
                     a.add(Integer.valueOf(separado[1]));
-                    actores_hashmap.put(id, a);
+                    actoresHashmap.put(id, a);
                 } else {
-                    actores_hashmap.get(id).add(Integer.valueOf(separado[1]));
+                    actoresHashmap.get(id).add(Integer.valueOf(separado[1]));
                 }
             }
         } catch (IOException e) {
             Logger logger = Logger.getLogger("Log");
             logger.log(Level.INFO, e.toString());
         }
-        return actores_hashmap;
+        return actoresHashmap;
     }
 
-    public static void vincularPeliculaActor(HashMap<Integer, List<PeliculaActor>> mapaPeliculaActor, HashMap<Integer, String> mapaActor, HashMap<Integer, String> mapaPelicula) {
+    public static void vincularPeliculaActor(Map<Integer, List<PeliculaActor>> mapaPeliculaActor, Map<Integer, String> mapaActor, Map<Integer, String> mapaPelicula) {
         for (Map.Entry<Integer, List<PeliculaActor>> entry : mapaPeliculaActor.entrySet()) {
             Pelicula pelicula = Pelicula.buscarPelicula(mapaPelicula, entry.getKey());
             if (pelicula != null) {
@@ -299,29 +233,27 @@ public class Utils {
 
     public static GraphLA<Integer> generarGrafo() {
         GraphLA<Integer> grafo = new GraphLA<>(false);
-        HashMap<Integer, String> mapaActor = cargarActoresMap();
-        HashMap<Integer, String> mapaPelicula = cargarPeliculasMap();
-        HashMap<Integer, List<PeliculaActor>> mapaPeliActor = cargarPeliActoresMap();
+        Map<Integer, String> mapaActor = cargarActoresMap();
+        Map<Integer, String> mapaPelicula = cargarPeliculasMap();
+        Map<Integer, List<PeliculaActor>> mapaPeliActor = cargarPeliActoresMap();
         vincularPeliculaActor(mapaPeliActor, mapaActor, mapaPelicula);
         for (Map.Entry<Integer, String> entry : mapaActor.entrySet()) {
             grafo.addVertex(entry.getKey());
         }
         for (Map.Entry<Integer, List<PeliculaActor>> entry : mapaPeliActor.entrySet()) {
-            combinations(entry.getValue(), 2).forEach((v)
-                    -> grafo.addEdge(v.get(0).getIdActor(), v.get(1).getIdActor(), v.get(0).getPelicula()));
+            combinations(entry.getValue(), 2).forEach(v -> grafo.addEdge(v.get(0).getIdActor(), v.get(1).getIdActor(), v.get(0).getPelicula()));
         }
         return grafo;
     }
 
-    public static GraphLA<Integer> generarGrafo(HashMap<Integer, String> mapaActor,
-            HashMap<Integer, String> mapaPelicula, HashMap<Integer, List<Integer>> mapaPeliActor) {
+    public static GraphLA<Integer> generarGrafo(Map<Integer, String> mapaActor,
+            Map<Integer, List<Integer>> mapaPeliActor) {
         GraphLA<Integer> grafo = new GraphLA<>(false);
         for (Map.Entry<Integer, String> entry : mapaActor.entrySet()) {
             grafo.addVertex(entry.getKey());
         }
         for (Map.Entry<Integer, List<Integer>> entry : mapaPeliActor.entrySet()) {
-            combinations(entry.getValue(), 2).forEach((v)
-                    -> grafo.addEdge(v.get(0), v.get(1), entry.getKey()));
+            combinations(entry.getValue(), 2).forEach(v -> grafo.addEdge(v.get(0), v.get(1), entry.getKey()));
         }
         return grafo;
     }

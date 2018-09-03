@@ -42,7 +42,7 @@ public class PaneMenuPrincipal {
      
     private void crearSeccionTitulo() {
         Label titleLbl = new Label("Bienvenido al juego del 'Número de Bacon'");
-        titleLbl.setPrefSize(600, 100);
+        titleLbl.setPrefSize(610, 100);
         titleLbl.setStyle("-fx-font: 25 Verdana; -fx-background-color: #21034B; -fx-text-fill: #F5F5F5;");
         titleLbl.setAlignment(Pos.CENTER);
         titleLbl.setPadding(new Insets(10, 10, 10, 10));

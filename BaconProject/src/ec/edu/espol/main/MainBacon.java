@@ -24,6 +24,7 @@ public class MainBacon extends Application {
         SCENE.setRoot(mp.getRoot());
         primaryStage.setTitle("Oraculo de Bacon");
         primaryStage.setScene(SCENE);
+        primaryStage.resizableProperty().setValue(Boolean.FALSE);
         primaryStage.show();
     }
 

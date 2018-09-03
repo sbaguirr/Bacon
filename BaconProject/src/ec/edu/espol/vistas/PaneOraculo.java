@@ -63,32 +63,43 @@ public class PaneOraculo {
 
     private void crearSeccionTitulo() {
         Label titleLbl = new Label("Calcular el número de Bacon de alguien");
-        titleLbl.setPrefSize(600, 100);
+        titleLbl.setPrefSize(610, 100);
         titleLbl.setStyle("-fx-font: 25 Verdana; -fx-background-color: #21034B; -fx-text-fill: #F5F5F5;");
         titleLbl.setAlignment(Pos.CENTER);
         titleLbl.setPadding(new Insets(10, 10, 10, 10));
-        root.setTop(titleLbl);
+        VBox vbox = new VBox();
+        HBox h = new HBox();
+        HBox hbox = new HBox();
+        h.getChildren().addAll(calcular, regresar);
+        h.setSpacing(20);
+        h.setAlignment(Pos.CENTER);
+        hbox.getChildren().addAll(titulo, actor);
+        hbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(titleLbl, hbox, h);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setSpacing(15);
+        root.setTop(vbox);
     }
 
     private void inicializarObjetos() {
         titulo = new Label("Distancia de Kevin Bacon hasta: ");
-        titulo.setStyle("-fx-font: 18 Verdana;");
+        titulo.setStyle("-fx-font: 14 Verdana;");
         n = new Label("El n° Bacon es: ");
         numeroBacon = new Label();
-        n.setStyle("-fx-font: 18 Verdana; -fx-background-color: #D500FF; -fx-text-fill: #F5F5F5;");
+        n.setStyle("-fx-font: 15 Verdana; -fx-background-color: #D500FF; -fx-text-fill: #F5F5F5;");
         n.setPrefSize(200, 50);
         n.setAlignment(Pos.CENTER);
-        numeroBacon.setStyle("-fx-font: 18 Verdana; -fx-background-color: #006CFF; -fx-text-fill: #F5F5F5;");
+        numeroBacon.setStyle("-fx-font: 15 Verdana; -fx-background-color: #006CFF; -fx-text-fill: #F5F5F5;");
         numeroBacon.setPrefSize(75, 50);
         numeroBacon.setAlignment(Pos.CENTER);
         actor = new TextField();
-        actor.setPrefSize(300, 35);
+        actor.setPrefSize(250, 30);
         calcular = new Button("Calcular");
-        calcular.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #A6FF00; -fx-text-fill: #F5F5F5;");
-        calcular.setPrefSize(150, 75);
+        calcular.setStyle("-fx-font: 14 Verdana; -fx-font-weight: bold; -fx-base: #A6FF00; -fx-text-fill: #F5F5F5;");
+        calcular.setPrefSize(110, 40);
         regresar = new Button("Volver");
-        regresar.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #FFDC00; -fx-text-fill: #F5F5F5;");
-        regresar.setPrefSize(150, 75);
+        regresar.setStyle("-fx-font: 14 Verdana; -fx-font-weight: bold; -fx-base: #FFDC00; -fx-text-fill: #F5F5F5;");
+        regresar.setPrefSize(110, 40);
         regresar.setOnAction(e -> {
             PaneMenuPrincipal mp = new PaneMenuPrincipal();
             SCENE.setRoot(mp.getRoot());
@@ -96,20 +107,7 @@ public class PaneOraculo {
     }
 
     private void crearSeccionOpciones() {
-        VBox vbox = new VBox();
-        HBox h = new HBox();
-        HBox hbox = new HBox();
-        h.getChildren().addAll(calcular, regresar);
-        h.setSpacing(25);
-        h.setPadding(new Insets(0, 10, 0, 10));
-        h.setAlignment(Pos.CENTER);
-        hbox.getChildren().add(actor);
-        hbox.setPadding(new Insets(0, 10, 30, 10));
-        hbox.setAlignment(Pos.CENTER);
-        vbox.getChildren().addAll(titulo, hbox, h);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setSpacing(20);
-        root.setCenter(vbox);
+        
     }
 
     private void seccionNumeroBacon() {

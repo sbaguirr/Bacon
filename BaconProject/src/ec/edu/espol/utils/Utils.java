@@ -32,7 +32,6 @@ public class Utils {
         HashMap<Integer, Pelicula> peliculas_hashmap = new HashMap<>();
         HashMap<Pelicula, List<Actor>> actores_en_pelicula = new HashMap<>();
         GraphLA<Actor> nuevo = new GraphLA<>(false);
-        // Leer el archivo de actores
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_ACTORES))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -43,9 +42,10 @@ public class Utils {
                 nuevo.addVertex(actor_actual);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
-        // Leer el archivo de peliculas
+
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_PELICULAS))) {
             String linea;
             final Pattern p = Pattern.compile("([0-9]+)\\\\|([^(]*)\\\\(([0-9]+)\\\\)");
@@ -56,9 +56,10 @@ public class Utils {
                 peliculas_hashmap.put(id, peli);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
-        // Leer el archivo de peli-actores
+
         try (BufferedReader br = new BufferedReader(new FileReader(PATH_PELICULA_ACTOR))) {
             String linea;
             while ((linea = br.readLine()) != null) {
@@ -70,7 +71,8 @@ public class Utils {
                 actores_en_pelicula.putIfAbsent(pelicula, lista_actores);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
         for (Map.Entry<Pelicula, List<Actor>> entry : actores_en_pelicula.entrySet()) {
             final List<Actor> value = entry.getValue();
@@ -115,11 +117,12 @@ public class Utils {
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                final Actor actor_actual = new Actor(id, separado[1]);
+                final Actor actor_actual = new Actor(id, separado[1].toLowerCase());
                 lista.add(actor_actual);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
     }
 
@@ -148,10 +151,11 @@ public class Utils {
             while ((linea = br.readLine()) != null) {
                 String[] separado = linea.split("\\|");
                 int id = Integer.parseInt(separado[0]);
-                actores_hashmap.put(id, separado[1]);
+                actores_hashmap.put(id, separado[1].toLowerCase());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
         return actores_hashmap;
     }
@@ -167,7 +171,7 @@ public class Utils {
             String cadena;
             while ((cadena = in.readLine()) != null) {
                 String[] p = cadena.split("\\|");
-                lista.add(new Pelicula(Integer.valueOf(p[0]), p[1]));
+                lista.add(new Pelicula(Integer.valueOf(p[0]), p[1].toLowerCase()));
             }
         } catch (Exception ex) {
             Logger logger = Logger.getLogger("Log");
@@ -218,7 +222,8 @@ public class Utils {
                 lista.add(pelicula_actor);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
     }
 
@@ -238,11 +243,12 @@ public class Utils {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
         return actores_hashmap;
     }
-    
+
     public static HashMap<Integer, List<Integer>> cargarPeliActoresMapNew() {
         HashMap<Integer, List<Integer>> actores_hashmap = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(PATH_PELICULA_ACTOR)))) {
@@ -259,7 +265,8 @@ public class Utils {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger logger = Logger.getLogger("Log");
+            logger.log(Level.INFO, e.toString());
         }
         return actores_hashmap;
     }
@@ -305,11 +312,10 @@ public class Utils {
         }
         return grafo;
     }
-    
+
     public static GraphLA<Integer> generarGrafo(HashMap<Integer, String> mapaActor,
-           HashMap<Integer, String> mapaPelicula,HashMap<Integer, List<Integer>> mapaPeliActor  ) {
+            HashMap<Integer, String> mapaPelicula, HashMap<Integer, List<Integer>> mapaPeliActor) {
         GraphLA<Integer> grafo = new GraphLA<>(false);
-        //vincularPeliculaActor(mapaPeliActor, mapaActor, mapaPelicula);
         for (Map.Entry<Integer, String> entry : mapaActor.entrySet()) {
             grafo.addVertex(entry.getKey());
         }

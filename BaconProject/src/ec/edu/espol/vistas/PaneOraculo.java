@@ -28,6 +28,7 @@ import javafx.stage.StageStyle;
  * @author ROSA
  */
 public class PaneOraculo {
+
     private final BorderPane root;
     private Label titulo, numeroBacon, n;
     private Button calcular, regresar;
@@ -37,29 +38,29 @@ public class PaneOraculo {
     private final HashMap<Integer, String> peliculas;
     private final HashMap<Integer, String> actores;
     private final HashMap<Integer, List<Integer>> peliculaActor;
-    
+
     public Pane getRoot() {
         return root;
     }
-    
+
     public PaneOraculo(Boolean di) {
         root = new BorderPane();
-        this.dijkstra=di;
+        this.dijkstra = di;
         peliculas = Utils.cargarPeliculasMap();
         actores = Utils.cargarActoresMap();
         peliculaActor = Utils.cargarPeliActoresMapNew();
         grafo = Utils.generarGrafo(actores, peliculas, peliculaActor);
         inicializarObjetos();
         llamarMetodos();
-    }  
-     
+    }
+
     private void llamarMetodos() {
         crearSeccionTitulo();
         crearSeccionOpciones();
         seccionNumeroBacon();
         calcularBacon();
     }
-     
+
     private void crearSeccionTitulo() {
         Label titleLbl = new Label("Calcular el número de Bacon de alguien");
         titleLbl.setPrefSize(600, 100);
@@ -88,7 +89,7 @@ public class PaneOraculo {
         regresar = new Button("Volver");
         regresar.setStyle("-fx-font: 18 Verdana; -fx-font-weight: bold; -fx-base: #FFDC00; -fx-text-fill: #F5F5F5;");
         regresar.setPrefSize(150, 75);
-        regresar.setOnAction(e->{
+        regresar.setOnAction(e -> {
             PaneMenuPrincipal mp = new PaneMenuPrincipal();
             SCENE.setRoot(mp.getRoot());
         });
@@ -110,22 +111,14 @@ public class PaneOraculo {
         vbox.setSpacing(20);
         root.setCenter(vbox);
     }
-    
-    private void seccionNumeroBacon(){
+
+    private void seccionNumeroBacon() {
         HBox hn = new HBox();
         hn.setSpacing(15);
         hn.getChildren().addAll(this.n, this.numeroBacon);
         hn.setAlignment(Pos.CENTER);
         hn.setPadding(new Insets(0, 10, 30, 10));
         root.setBottom(hn);
-    }
-    
-    private void ventanaProblemasTecnicos() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText("Lo sentimos, estamos teniendo inconvenientes técnicos");
-        alert.showAndWait();
     }
 
     private void dialogoAdvertencia() {
@@ -137,7 +130,7 @@ public class PaneOraculo {
         advertencia.showAndWait();
     }
 
-    private void actorYaExiste() {
+    private void actorNoExiste() {
         Alert advertencia = new Alert(Alert.AlertType.ERROR);
         advertencia.setTitle(" :(  ");
         advertencia.setContentText("El actor buscado no existe");
@@ -145,43 +138,47 @@ public class PaneOraculo {
         advertencia.initStyle(StageStyle.UTILITY);
         advertencia.showAndWait();
     }
-    
+
     public void calcularBacon() {
-        calcular.setOnAction(e->{
-            String act = this.actor.getText();
-            int id = searchIdActor(act);
-            if(!act.equals("") || id != 0){
-                if(this.dijkstra){
-                    String d = String.valueOf(calcularDijkstra(id));
-                    this.numeroBacon.setText(d);
-                }else{
-                    String b = String.valueOf(calcularBFS(id));
-                    this.numeroBacon.setText(b);
+        calcular.setOnAction(e -> {
+            String act = this.actor.getText().toLowerCase();
+            if (!act.equals("")) {
+                int id = searchIdActor(act);
+                if (id != 0) {
+                    if (this.dijkstra) {
+                        String d = String.valueOf(calcularDijkstra(id));
+                        this.numeroBacon.setText(d);
+                    } else {
+                        String b = String.valueOf(calcularBFS(id));
+                        this.numeroBacon.setText(b);
+                    }
+                } else {
+                    this.actorNoExiste();
                 }
-            }else{
-                this.actorYaExiste();
-            }        
-       });
+            } else {
+                dialogoAdvertencia();
+            }
+        });
     }
-    
-    private int searchIdActor(String actor){
+
+    private int searchIdActor(String actor) {
         int id = 0;
         Map<Integer, String> mapa = Utils.cargarActoresMap();
-        for(Map.Entry<Integer, String> m : mapa.entrySet()){
-            if(m.getValue().equals(actor)){
+        for (Map.Entry<Integer, String> m : mapa.entrySet()) {
+            if (m.getValue().equals(actor)) {
                 return m.getKey();
-            }   
+            }
         }
         return id;
     }
-    
-    private int calcularDijkstra(int id){
-        int idKB = searchIdActor("Kevin Bacon");
+
+    private int calcularDijkstra(int id) {
+        int idKB = searchIdActor("kevin bacon");
         return this.grafo.caminoMinimoDijkstra(id, idKB);
     }
-    
-    private int calcularBFS(int id){
-        int idKB = searchIdActor("Kevin Bacon");
-        return this.grafo.caminoMinimo(id, idKB);   
+
+    private int calcularBFS(int id) {
+        int idKB = searchIdActor("kevin bacon");
+        return this.grafo.caminoMinimo(id, idKB);
     }
 }

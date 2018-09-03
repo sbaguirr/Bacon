@@ -97,8 +97,8 @@ public class GraphLA<E> {
             actual.setVisitado(true);
         }
         desmarcarVertices();
-        last= origen;
-        calculadoDijkstra=true;
+        last = origen;
+        calculadoDijkstra = true;
     }
 
     private void desmarcarVertices() {
@@ -120,6 +120,7 @@ public class GraphLA<E> {
     private void bfs(E data) {
         Vertex<E> v = searchVertex(data);
         if (v != null && !this.isEmpty()) {
+            desmarcarVertices();
             Queue<Vertex<E>> cola = new LinkedList<>();
             v.setVisitado(true);
             v.setDistancia(0);
@@ -171,50 +172,52 @@ public class GraphLA<E> {
         return g.toString();
     }
 
-    public int caminoMinimoDijkstra(E origen, E destino){
+    public int caminoMinimoDijkstra(E origen, E destino) {
         final Vertex<E> o = searchVertex(origen);
-        final Vertex<E> d =  searchVertex(destino);
-        if (o == null || d == null){
+        final Vertex<E> d = searchVertex(destino);
+        if (o == null || d == null) {
             return -1;
         } else {
             this.dijkstra_internal(o);
-            return caminoMinimoDijkstra(o,d);
+            return caminoMinimoDijkstra(o, d);
         }
 
     }
 
-    private int caminoMinimoDijkstra(Vertex<E> origen, Vertex<E> destino){
-        if(origen.equals(destino)){
+    private int caminoMinimoDijkstra(Vertex<E> origen, Vertex<E> destino) {
+        if (origen.equals(destino)) {
             return 0;
         } else {
-            return 1+ caminoMinimoDijkstra(origen,destino.getAntecesor());
+            return 1 + caminoMinimoDijkstra(origen, destino.getAntecesor());
         }
     }
 
-    public List<Edge<E>> recorridoCaminoMinimo(E origen, E destino){
+    public List<Edge<E>> recorridoCaminoMinimo(E origen, E destino) {
         List<Vertex<E>> l = new LinkedList<>();
         List<Edge<E>> lista = new LinkedList<>();
         Vertex<E> vo = this.searchVertex(origen);
         Vertex<E> vd = this.searchVertex(destino);
-        if(vo == null || vd == null) return lista;
+        if (vo == null || vd == null) {
+            return lista;
+        }
         dijkstra_internal(vo);//this.bfs(vo.getData());
         Vertex<E> tmp = vd;
         Deque<Vertex<E>> pila = new LinkedList<>();
-        while((tmp != null)) {
+        while ((tmp != null)) {
             pila.push(tmp);
             tmp = tmp.getAntecesor();
         }
-        while(!pila.isEmpty()){ 
+        while (!pila.isEmpty()) {
             l.add(pila.pop());
         }
-        for(Vertex<E> a : l){
-            for(Edge<E> s : a.getEdgeList()){
+        for (Vertex<E> a : l) {
+            for (Edge<E> s : a.getEdgeList()) {
                 lista.add(s);
             }
         }
         ListIterator<Edge<E>> i = lista.listIterator();
-        while(i.hasNext()){
-            if(!l.contains(i.next().getDestino())){
+        while (i.hasNext()) {
+            if (!l.contains(i.next().getDestino())) {
                 i.remove();
             }
         }

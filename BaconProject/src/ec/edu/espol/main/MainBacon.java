@@ -22,7 +22,6 @@ public class MainBacon extends Application {
     public void start(Stage primaryStage) {
         PaneMenuPrincipal mp = new PaneMenuPrincipal();
         SCENE.setRoot(mp.getRoot());
-        //scene.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
         primaryStage.setTitle("Oraculo de Bacon");
         primaryStage.setScene(SCENE);
         primaryStage.show();

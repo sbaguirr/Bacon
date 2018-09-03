@@ -21,8 +21,12 @@ import ec.edu.espol.tda.Actor;
 import ec.edu.espol.tda.Pelicula;
 import ec.edu.espol.utils.Utils;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.StageStyle;
@@ -61,7 +65,6 @@ public class PaneOraculo {
 
     private void llamarMetodos() {
         crearSeccionTitulo();
-        crearSeccionOpciones();
         seccionNumeroBacon();
         calcularBacon();
     }
@@ -104,17 +107,14 @@ public class PaneOraculo {
         calcular = new Button("Calcular");
         calcular.setStyle("-fx-font: 14 Verdana; -fx-font-weight: bold; -fx-base: #A6FF00; -fx-text-fill: #F5F5F5;");
         calcular.setPrefSize(110, 40);
-        regresar = new Button("Volver");
+        regresar = new Button("Limpiar");
         regresar.setStyle("-fx-font: 14 Verdana; -fx-font-weight: bold; -fx-base: #FFDC00; -fx-text-fill: #F5F5F5;");
         regresar.setPrefSize(110, 40);
         regresar.setOnAction(e -> {
-            PaneMenuPrincipal mp = new PaneMenuPrincipal();
-            SCENE.setRoot(mp.getRoot());
+            this.actor.setText("");
+            this.numeroBacon.setText("");
+            this.v.setText("");
         });
-    }
-
-    private void crearSeccionOpciones() {
-
     }
 
     private void seccionNumeroBacon() {
